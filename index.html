@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lista do bebé · Dezembro 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --honey-pale:  #FDF8E4;
+    --honey-mid:   #F7EDC8;
+    --honey:       #E0A81E;
+    --honey-deep:  #B9820C;
+    --leaf:        #6E9150;
+    --leaf-deep:   #3E5730;
+    --ink:         #2B3A24;
+    --ink-soft:    #5C6B4F;
+    --ink-faint:   #93A181;
+    --rule:        #E7DFBE;
+    --card:        #FFFDF4;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--honey-pale);
+    color: var(--ink);
+    font-family: 'Figtree', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 660px; margin: 0 auto; padding: 0 20px 72px; }
+  a { color: inherit; }
+
+  :focus-visible {
+    outline: 2px solid var(--leaf);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero {
+    padding: 60px 0 40px;
+    text-align: center;
+    position: relative;
+  }
+
+  .flight {
+    display: block;
+    margin: 0 auto 22px;
+    width: 108px; height: 40px;
+    overflow: visible;
+  }
+  .flight .trail {
+    fill: none;
+    stroke: var(--honey);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-dasharray: 3 6;
+    opacity: .75;
+  }
+  .flight .wing { fill: #FFFFFF; stroke: var(--honey-deep); stroke-width: 1; opacity: .95; }
+  .flight .body { fill: var(--ink); }
+  .flight .band { stroke: var(--honey); stroke-width: 1.7; stroke-linecap: round; }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Petrona', Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(38px, 9.5vw, 56px);
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    margin: 0;
+    color: var(--leaf-deep);
+  }
+  h1 em {
+    display: block;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--honey-deep);
+  }
+
+  .lede {
+    max-width: 400px;
+    margin: 20px auto 30px;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    line-height: 1.62;
+  }
+
+  .btn {
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 14px 30px;
+    border-radius: 100px;
+    transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+  }
+  .btn:active { transform: translateY(1px); }
+
+  .btn-leaf {
+    background: var(--leaf-deep);
+    color: var(--honey-pale);
+  }
+  .btn-leaf:hover { background: var(--leaf); }
+
+  /* Amazon — the loud one */
+  .btn-honey {
+    background: var(--honey);
+    color: #3A2A05;
+    box-shadow: 0 3px 0 var(--honey-deep);
+    font-size: 16px;
+    padding: 16px 34px;
+  }
+  .btn-honey:hover { background: #EFB62C; }
+  .btn-honey:active { box-shadow: 0 1px 0 var(--honey-deep); }
+
+  .shop {
+    background: var(--card);
+    border: 2px solid var(--honey-mid);
+    border-radius: 18px;
+    padding: 26px 24px;
+    margin: 34px auto 0;
+    max-width: 480px;
+  }
+  .shop-label {
+    font-family: 'Petrona', Georgia, serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--leaf-deep);
+    margin-bottom: 10px;
+  }
+  .shop p {
+    margin: 0 0 20px;
+    font-size: 14.5px;
+    line-height: 1.62;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Toolbar ---------- */
+
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--honey-pale);
+    border-bottom: 2px solid var(--rule);
+    margin-top: 46px;
+    padding: 13px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .tally { font-size: 13.5px; color: var(--ink-soft); }
+  .tally b { color: var(--leaf-deep); font-weight: 700; }
+
+  .filters { display: flex; gap: 6px; }
+  .chip {
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    background: transparent;
+    border: 1.5px solid var(--rule);
+    border-radius: 100px;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .chip:hover { border-color: var(--leaf); }
+  .chip[aria-pressed="true"] {
+    background: var(--leaf-deep);
+    border-color: var(--leaf-deep);
+    color: var(--honey-pale);
+  }
+
+  /* ---------- Sections ---------- */
+
+  .section { margin-top: 40px; }
+  .section[hidden] { display: none; }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .section-head h2 {
+    font-family: 'Petrona', Georgia, serif;
+    font-weight: 500;
+    font-size: 25px;
+    margin: 0;
+    color: var(--leaf-deep);
+  }
+  .section-head .bloom {
+    flex: 0 0 auto;
+    width: 15px; height: 15px;
+    opacity: .85;
+  }
+  .section-head .remain {
+    margin-left: auto;
+    font-size: 11.5px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .section-rule {
+    height: 0;
+    border-top: 2px dotted var(--honey-mid);
+    margin-bottom: 2px;
+  }
+
+  /* ---------- Items ---------- */
+
+  .item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px 16px;
+    align-items: center;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .item[hidden] { display: none; }
+  .item:last-child { border-bottom: none; }
+
+  .item-main { grid-column: 1; }
+
+  .item-name {
+    font-size: 15.5px;
+    font-weight: 600;
+    line-height: 1.35;
+    margin: 0;
+  }
+  .item-name.done { color: var(--ink-faint); }
+
+  .item-meta {
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    line-height: 1.55;
+    margin-top: 3px;
+  }
+  .item-meta a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--honey-mid);
+  }
+  .item-meta a:hover { color: var(--honey-deep); border-color: var(--honey); }
+  .sep { opacity: .45; margin: 0 5px; }
+
+  .item-side {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 7px;
+  }
+
+  /* Signature: the honeycomb meter */
+  .comb { display: flex; align-items: center; gap: 3px; }
+  .cell {
+    width: 15px; height: 17px;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    background: var(--rule);
+    transition: background .45s ease;
+  }
+  .cell.filled { background: var(--honey); }
+  .cell.full   { background: var(--leaf); }
+
+  .count {
+    font-size: 11.5px;
+    letter-spacing: .03em;
+    color: var(--ink-faint);
+    white-space: nowrap;
+  }
+  .count.has { color: var(--honey-deep); font-weight: 700; }
+  .count.done { color: var(--leaf); font-weight: 700; }
+
+  .reserve {
+    display: inline-block;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--leaf-deep);
+    background: transparent;
+    border: 1.5px solid var(--leaf);
+    border-radius: 100px;
+    padding: 6px 16px;
+    white-space: nowrap;
+    transition: background .15s ease, color .15s ease;
+  }
+  .reserve:hover { background: var(--leaf); color: #fff; }
+  .reserve.done {
+    border-color: var(--rule);
+    color: var(--ink-faint);
+  }
+  .reserve.done:hover { background: var(--rule); color: var(--ink-soft); }
+
+  button.reserve { cursor: pointer; }
+  button.reserve:disabled { opacity: .55; cursor: default; }
+
+  .reserve.mine {
+    background: var(--leaf);
+    border-color: var(--leaf);
+    color: #fff;
+  }
+  .reserve.mine:hover { background: var(--leaf-deep); border-color: var(--leaf-deep); }
+
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 22px;
+    transform: translateX(-50%) translateY(12px);
+    background: var(--leaf-deep);
+    color: var(--honey-pale);
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 12px 22px;
+    border-radius: 100px;
+    box-shadow: 0 6px 20px rgba(43,58,36,.22);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .22s ease, transform .22s ease;
+    z-index: 60;
+    max-width: calc(100vw - 40px);
+    text-align: center;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ---------- States & footer ---------- */
+
+  .empty {
+    text-align: center;
+    padding: 54px 20px;
+    color: var(--ink-faint);
+    font-family: 'Petrona', Georgia, serif;
+    font-style: italic;
+    font-size: 19px;
+  }
+  .empty[hidden] { display: none; }
+
+  .status {
+    text-align: center;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    padding-top: 22px;
+  }
+
+  .closing { text-align: center; padding-top: 52px; }
+  .closing p {
+    font-family: 'Petrona', Georgia, serif;
+    font-style: italic;
+    font-size: 20px;
+    color: var(--ink-soft);
+    margin: 0 0 22px;
+  }
+  .closing .btn { margin: 0 5px 10px; }
+
+  @media (max-width: 520px) {
+    .hero { padding-top: 46px; }
+    .toolbar { justify-content: center; }
+    .item { grid-template-columns: 1fr; }
+    .item-side { grid-column: 1; flex-direction: row; align-items: center; gap: 10px; }
+    .count { order: 3; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <svg class="flight" viewBox="0 0 108 40" aria-hidden="true">
+      <path class="trail" d="M4 30 C 22 30, 24 12, 42 12 S 64 30, 80 24" />
+      <g transform="translate(86,20)">
+        <ellipse class="wing" cx="-2" cy="-5" rx="6" ry="3.6" transform="rotate(-24 -2 -5)"/>
+        <ellipse class="wing" cx="4" cy="-5" rx="6" ry="3.6" transform="rotate(24 4 -5)"/>
+        <ellipse class="body" cx="1" cy="0" rx="7.5" ry="5"/>
+        <path class="band" d="M-1.5 -4.3 L -1.5 4.3" />
+        <path class="band" d="M3 -4.6 L 3 4.6" />
+      </g>
+    </svg>
+
+    <div class="eyebrow">Vila Nova de Gaia · Dezembro 2026</div>
+    <h1>A lista<em>do nosso bebé</em></h1>
+
+    <p class="lede">Cada favo mostra quantas pessoas ainda faltam para um item ficar completo. Carreguem em Reservar no que quiserem levar.</p>
+
+    <a class="btn btn-leaf" id="cta-top" href="#" target="_blank" rel="noopener">Marcar o que vou levar</a>
+
+    <div class="shop">
+      <div class="shop-label">Onde comprar</div>
+      <p>Não é preciso comprar em nenhuma loja específica, tem alguns links com exemplos. Se preferirem, também temos uma wishlist na Amazon com exemplos do que gostamos (e ajuda-nos a ter desconto).</p>
+      <a class="btn btn-honey" href="https://www.amazon.es/baby-reg/catarina-pinho-december-2026-vilanovadegaia/1M5NP0HOTKKUP" target="_blank" rel="noopener">Ver a wishlist na Amazon</a>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <div class="tally" id="tally">A carregar…</div>
+    <div class="filters">
+      <button class="chip" id="chip-all" aria-pressed="true">Tudo</button>
+      <button class="chip" id="chip-open" aria-pressed="false">Ainda falta gente</button>
+    </div>
+  </div>
+
+  <main id="list"></main>
+
+  <div class="empty" hidden id="empty">Está tudo com alguém. Obrigada! 🐝</div>
+  <div class="status" id="status"></div>
+
+  <div class="closing">
+    <p>Obrigada por fazerem parte desta fase</p>
+    <a class="btn btn-leaf" id="cta-bottom" href="#" target="_blank" rel="noopener">Marcar o que vou levar</a>
+    <a class="btn btn-honey" href="https://www.amazon.es/baby-reg/catarina-pinho-december-2026-vilanovadegaia/1M5NP0HOTKKUP" target="_blank" rel="noopener">Ver a wishlist na Amazon</a>
+  </div>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+  // ============================================================
+  //  CONFIGURACAO
+  // ============================================================
+
+  // Folha onde as marcacoes ficam guardadas (so tu precisas de a abrir)
+  const SHEET_URL = "https://docs.google.com/spreadsheets/d/1ePwH22OhBMCSZ1UTDzShUZABziEqL-4g4EqGkML9rPw/edit";
+
+  // URL da aplicacao web do Apps Script (termina em /exec)
+  // Sem isto, os botoes Reservar abrem a folha em vez de gravarem sozinhos.
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwR0vCt5jBFBMXodDWQV5VIOnGHzMHCKR1Zb0VPRS9lio7876gSNDjkjLehOSA5NViU/exec";
+
+  // Link CSV da mesma folha publicada na web
+  // Na Sheet: Ficheiro > Partilhar > Publicar na web > formato "CSV" > Publicar
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRCq-wA_nxmadkNNLM7iuShvy5S8TCQQByNnOnPv-WDU5tSFWPo7Lx16qFRKzzt0MBVkltJwJWkdaRF/pub?gid=1515879068&single=true&output=csv";
+
+  // ============================================================
+
+  // need = quantas pessoas fazem falta para o item ficar completo
+  const DATA = [
+    { cat: "Sono", items: [
+      { name: "Lençóis ajustáveis (2 conjuntos)", need: 2 },
+      { name: "2 mantas leves", need: 2 },
+      { name: "2 mantas mais quentes", need: 2 },
+      { name: "Sacos cama de dormir", need: 2 },
+      { name: "Swaddles", need: 2 },
+      { name: "Doudou", need: 1 },
+    ]},
+    { cat: "Fraldas e higiene", items: [
+      { name: "Fraldas tamanho 1", need: 3, note: "Dodot sensitive, Rascal…" },
+      { name: "Fraldas tamanho 2", need: 3, note: "Dodot sensitive, Rascal…" },
+      { name: "Fraldas tamanho 3", need: 3, note: "Dodot sensitive, Rascal…" },
+      { name: "Toalhitas", need: 3, note: "99% água, sem perfume e sem álcool" },
+      { name: "Água de limpeza (Uriage)", need: 2,
+        links: [{ t: "exemplo", u: "https://lovemypharma.com/products/uriage-1%C2%AA-agua-de-limpeza-bebe" }] },
+      { name: "Kits de higiene travel size ou amostras", need: 3,
+        links: [
+          { t: "ISDIN", u: "https://www.atida.com/pt-pt/isdin-baby-naturals-nutra-cesta-mini" },
+          { t: "Uriage", u: "https://www.farmaciagoncalves.com.pt/uriage-bebe-travel-kit.html" },
+          { t: "Mustela", u: "https://www.perfumesclub.pt/pt/mustela/neceser-jungla-lote/p_53634/" },
+          { t: "Barral", u: "https://wells.pt/kit-de-viagem-hidratante-babyprotect-7648227.html" },
+        ] },
+      { name: "Toalhas macias algodão, com capuz", need: 2 },
+      { name: "Kit de unhas e escovas", need: 1,
+        links: [{ t: "exemplo", u: "https://www.amazon.es/-/en/Lictin-Rechargeable-Electric-Automatic-Lighting/dp/B0FJLDXDF3" }] },
+    ]},
+    { cat: "Alimentação", items: [
+      { name: "Biberões", need: 2,
+        links: [
+          { t: "Wells", u: "https://wells.pt/zero-zero-new-born-starter-set-7648569.html" },
+          { t: "Philips Avent", u: "https://www.amazon.es/-/en/Philips-biberones-nacidos-sistema-AirFree/dp/B0BWFLY8HV" },
+        ] },
+      { name: "Aquecedor portátil de biberões", need: 1 },
+      { name: "Esterilizador de biberões", need: 1 },
+      { name: "Babetes", need: 2 },
+      { name: "Bomba Medela Freestyle", need: 1,
+        links: [{ t: "exemplo", u: "https://www.amazon.es/-/en/Medela-Freestyle-Hands-Free-Collection-Rechargeable/dp/B0GL2ZZXXS" }] },
+      { name: "Copo coletor", need: 1,
+        links: [{ t: "exemplo", u: "https://www.medela.com/pt-pt/extracao-do-leite-materno/produtos/bombas-tira-leite/manual/coletor-em-silicone-de-leite-materno?productId=4082" }] },
+      { name: "Copos soutien", need: 1,
+        links: [{ t: "exemplo", u: "https://www.amazon.es/-/en/Medela-Breastmilk-Flexible-Anatomically-Dishwasher/dp/B0FT8GV1MS" }] },
+      { name: "Sacos para conservar leite", need: 2,
+        links: [{ t: "exemplo", u: "https://www.amazon.es/-/en/Medela-Breastmilk-Storage-Disposable-Nutrients/dp/B0F9YGJJFM" }] },
+      { name: "Panos para arroto", need: 2 },
+      { name: "Creme para mamilos", need: 1,
+        links: [{ t: "exemplo", u: "https://wells.pt/purelan-creme-hidratante-para-mamilos-3660709.html" }] },
+    ]},
+    { cat: "Roupa", items: [
+      { name: "Bodies algodão macio (7 a 10)", need: 3, note: "várias mangas e tamanhos" },
+      { name: "Babygrows algodão de molas (7 a 10)", need: 3 },
+      { name: "Calcinhas de algodão", need: 2 },
+      { name: "Meias ou botinhas algodão (4 a 6)", need: 2 },
+      { name: "Gorros (2 a 3)", need: 2 },
+      { name: "Casacos leves (2)", need: 2 },
+      { name: "Casaco mais quente (1)", need: 1 },
+      { name: "Conjuntos completos (4 a 6)", need: 3, note: "camisolas, calças, jardineiras…" },
+    ]},
+    { cat: "Saídas e segurança", items: [
+      { name: "Cadeira auto", need: 1,
+        links: [{ t: "exemplo", u: "https://www.babycool.com/products/joie-i-spin-xl-signature-eclipse-40-150cm" }] },
+      { name: "Marsúpio ou pano", need: 1 },
+      { name: "Espreguiçadeira", need: 1 },
+    ]},
+    { cat: "Saúde", items: [
+      { name: "Kit de primeiros socorros básico", need: 1, note: "aspirador nasal, gaze, tesoura" },
+      { name: "Chupetas", need: 2 },
+    ]},
+    { cat: "Brincar", items: [
+      { name: "Livros sensoriais", need: 2,
+        links: [{ t: "exemplo", u: "https://www.amazon.es/-/en/URMYWO-Months-Contrast-Fabric-Babies/dp/B0CFZX62BY" }] },
+    ]},
+    { cat: "Para a mãe", items: [
+      { name: "Kit essencial para recuperação pós-parto", need: 1,
+        links: [{ t: "exemplo", u: "https://wells.pt/kit-essencial-para-recuperacao-pos-parto-8662860.html" }] },
+      { name: "Frasco de lavagem", need: 1,
+        links: [{ t: "exemplo", u: "https://wells.pt/frasco-lavagem-pos-parto-8048337.html" }] },
+      { name: "Camisas de dormir amamentação", need: 2 },
+    ]},
+  ];
+
+  const BLOOM = '<svg class="bloom" viewBox="0 0 20 20" aria-hidden="true">' +
+    '<g fill="#E0A81E" opacity="0.9">' +
+    '<ellipse cx="10" cy="4"  rx="2.6" ry="3.6"/>' +
+    '<ellipse cx="10" cy="16" rx="2.6" ry="3.6"/>' +
+    '<ellipse cx="4"  cy="10" rx="3.6" ry="2.6"/>' +
+    '<ellipse cx="16" cy="10" rx="3.6" ry="2.6"/>' +
+    '</g><circle cx="10" cy="10" r="2.6" fill="#6E9150"/></svg>';
+
+  document.getElementById("cta-top").href = SHEET_URL;
+  document.getElementById("cta-bottom").href = SHEET_URL;
+
+  const nodes = {};
+  const sections = [];
+  let onlyOpen = false;
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, c =>
+      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  }
+
+  function build() {
+    const list = document.getElementById("list");
+
+    DATA.forEach(cat => {
+      const sec = document.createElement("section");
+      sec.className = "section";
+      sec.innerHTML =
+        '<div class="section-head">' + BLOOM +
+        '<h2>' + esc(cat.cat) + '</h2><span class="remain"></span></div>' +
+        '<div class="section-rule"></div>';
+
+      const names = [];
+
+      cat.items.forEach(it => {
+        const row = document.createElement("article");
+        row.className = "item";
+
+        const bits = [];
+        if (it.note) bits.push(esc(it.note));
+        if (it.links) {
+          bits.push(it.links.map(l =>
+            '<a href="' + esc(l.u) + '" target="_blank" rel="noopener">' + esc(l.t) + '</a>'
+          ).join('<span class="sep">·</span>'));
+        }
+
+        const cells = Array.from({ length: it.need })
+          .map(() => '<span class="cell"></span>').join("");
+
+        const hasScript = SCRIPT_URL.indexOf("COLA_AQUI") !== 0;
+        const reserveHtml = hasScript
+          ? '<button class="reserve" type="button">Reservar</button>'
+          : '<a class="reserve" href="' + SHEET_URL + '" target="_blank" rel="noopener">Reservar</a>';
+
+        row.innerHTML =
+          '<div class="item-main">' +
+            '<h3 class="item-name">' + esc(it.name) + '</h3>' +
+            (bits.length ? '<div class="item-meta">' + bits.join(" — ") + '</div>' : '') +
+          '</div>' +
+          '<div class="item-side">' +
+            '<div class="comb" role="img">' + cells + '</div>' +
+            '<div class="count"></div>' +
+            reserveHtml +
+          '</div>';
+
+        sec.appendChild(row);
+        names.push(it.name);
+        nodes[it.name] = {
+          item: it,
+          row,
+          name: row.querySelector(".item-name"),
+          cells: row.querySelectorAll(".cell"),
+          count: row.querySelector(".count"),
+          reserve: row.querySelector(".reserve"),
+        };
+
+        const btn = row.querySelector("button.reserve");
+        if (btn) btn.addEventListener("click", () => reservar(it.name));
+      });
+
+      list.appendChild(sec);
+      sections.push({ el: sec, remain: sec.querySelector(".remain"), names });
+    });
+  }
+
+  // --- Reservas gravadas por este dispositivo (para poder desmarcar) ---
+  const MINE_KEY = "reservas-bebe";
+
+  function lerMinhas() {
+    try { return JSON.parse(localStorage.getItem(MINE_KEY)) || []; }
+    catch (e) { return []; }
+  }
+  function guardarMinhas(lista) {
+    try { localStorage.setItem(MINE_KEY, JSON.stringify(lista)); } catch (e) {}
+  }
+  function ehMinha(nome) { return lerMinhas().indexOf(nome) !== -1; }
+
+  function aviso(texto) {
+    const t = document.getElementById("toast");
+    t.textContent = texto;
+    t.classList.add("show");
+    clearTimeout(aviso._t);
+    aviso._t = setTimeout(() => t.classList.remove("show"), 2800);
+  }
+
+  async function reservar(nome) {
+    const nd = nodes[nome];
+    if (!nd || nd.ocupado) return;
+
+    const cancelar = ehMinha(nome);
+    nd.ocupado = true;
+    nd.reserve.disabled = true;
+    nd.reserve.textContent = cancelar ? "A desmarcar…" : "A reservar…";
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: "POST",
+        // text/plain evita o pedido de verificacao previa do browser
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ item: nome, accao: cancelar ? "cancelar" : "reservar" }),
+      });
+
+      const dados = await res.json();
+
+      if (!dados.ok) {
+        aviso(dados.erro || "Não foi possível gravar.");
+      } else {
+        const minhas = lerMinhas();
+        if (cancelar) {
+          guardarMinhas(minhas.filter(n => n !== nome));
+          aviso("Desmarcado. Obrigada por avisares.");
+        } else {
+          minhas.push(nome);
+          guardarMinhas(minhas);
+          aviso("Reservado. Obrigada! 🐝");
+        }
+      }
+    } catch (e) {
+      console.error(e);
+      aviso("Não foi possível gravar. Tenta outra vez daqui a pouco.");
+    } finally {
+      nd.ocupado = false;
+      nd.reserve.disabled = false;
+      await load();
+    }
+  }
+
+  function norm(s) {
+    return (s || "")
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase().replace(/\s+/g, " ").trim();
+  }
+
+  function parseCSV(text) {
+    const rows = []; let row = [], field = "", q = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) {
+        if (c === '"') { if (text[i + 1] === '"') { field += '"'; i++; } else q = false; }
+        else field += c;
+      } else if (c === '"') q = true;
+      else if (c === ",") { row.push(field); field = ""; }
+      else if (c === "\n") { row.push(field); rows.push(row); row = []; field = ""; }
+      else if (c !== "\r") field += c;
+    }
+    if (field.length || row.length) { row.push(field); rows.push(row); }
+    return rows;
+  }
+
+  function countFromSheet(rows) {
+    const counts = {}, byNorm = {};
+    Object.keys(nodes).forEach(n => { counts[n] = 0; byNorm[norm(n)] = n; });
+
+    // Folha: A categoria · B item · C notas · D links · E–J marcacoes
+    for (let r = 1; r < rows.length; r++) {
+      const cells = rows[r];
+      if (!cells || cells.length < 2) continue;
+      const key = byNorm[norm(cells[1])];
+      if (!key) continue;
+      let n = 0;
+      for (let c = 4; c <= 9; c++) if (cells[c] && cells[c].trim() !== "") n++;
+      counts[key] = n;
+    }
+    return counts;
+  }
+
+  function apply(counts) {
+    let covered = 0, total = 0;
+
+    Object.keys(nodes).forEach(name => {
+      const nd = nodes[name];
+      const n = counts[name] || 0;
+      const need = nd.item.need;
+      const complete = n >= need;
+      total++;
+      if (complete) covered++;
+
+      nd.cells.forEach((c, i) => {
+        c.classList.toggle("filled", i < n && !complete);
+        c.classList.toggle("full", complete);
+      });
+
+      nd.name.classList.toggle("done", complete);
+      nd.count.classList.remove("has", "done");
+
+      if (n === 0) {
+        nd.count.textContent = need === 1 ? "falta 1 pessoa" : "faltam " + need + " pessoas";
+      } else if (complete) {
+        nd.count.textContent = n === 1 ? "1 pessoa · completo" : n + " pessoas · completo";
+        nd.count.classList.add("done");
+      } else {
+        const left = need - n;
+        nd.count.textContent = n + (n === 1 ? " pessoa" : " pessoas") +
+          " · falta" + (left === 1 ? " 1" : "m " + left);
+        nd.count.classList.add("has");
+      }
+
+      nd.reserve.classList.toggle("done", complete);
+      if (ehMinha(name)) {
+        nd.reserve.textContent = "Reservado por ti ✓";
+        nd.reserve.classList.add("mine");
+      } else {
+        nd.reserve.classList.remove("mine");
+        nd.reserve.textContent = complete ? "Levar também" : "Reservar";
+      }
+
+      nd.row.dataset.complete = complete ? "1" : "0";
+    });
+
+    sections.forEach(s => {
+      const open = s.names.filter(n => nodes[n].row.dataset.complete === "0").length;
+      s.remain.textContent = open === 0 ? "completo" : open + " por marcar";
+    });
+
+    document.getElementById("tally").innerHTML =
+      "<b>" + covered + "</b> de <b>" + total + "</b> itens já com alguém";
+
+    applyFilter();
+  }
+
+  function applyFilter() {
+    let shown = 0;
+    Object.keys(nodes).forEach(name => {
+      const nd = nodes[name];
+      const hide = onlyOpen && nd.row.dataset.complete === "1";
+      nd.row.hidden = hide;
+      if (!hide) shown++;
+    });
+    sections.forEach(s => {
+      s.el.hidden = !s.names.some(n => !nodes[n].row.hidden);
+    });
+    document.getElementById("empty").hidden = shown > 0;
+  }
+
+  function setFilter(open) {
+    onlyOpen = open;
+    document.getElementById("chip-all").setAttribute("aria-pressed", String(!open));
+    document.getElementById("chip-open").setAttribute("aria-pressed", String(open));
+    applyFilter();
+  }
+
+  document.getElementById("chip-all").addEventListener("click", () => setFilter(false));
+  document.getElementById("chip-open").addEventListener("click", () => setFilter(true));
+
+  async function load() {
+    const status = document.getElementById("status");
+
+    if (!CSV_URL || CSV_URL.indexOf("COLA_AQUI") === 0) {
+      status.textContent = "Publica a folha em CSV e cola o link em CSV_URL para os favos ganharem vida.";
+      apply({});
+      return;
+    }
+
+    try {
+      const url = CSV_URL + (CSV_URL.indexOf("?") === -1 ? "?" : "&") + "t=" + Date.now();
+      const res = await fetch(url);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      apply(countFromSheet(parseCSV(await res.text())));
+      status.textContent = "";
+    } catch (e) {
+      console.error(e);
+      status.textContent = "As marcações não carregaram. Recarrega a página daqui a pouco.";
+      apply({});
+    }
+  }
+
+  build();
+  load();
+  setInterval(load, 60000);
+</script>
+</body>
+</html>
